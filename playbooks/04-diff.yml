@@ -1,0 +1,25 @@
+#!/usr/bin/env ansible-playbook
+---
+- hosts: all
+  gather_facts: False
+
+  vars_prompt:
+   - name: "file"
+     prompt: "What is the name of the file?"
+     private: no
+
+  tasks: 
+   - local_action: file path=../files/tmp state=directory
+
+   - fetch: src={{ file }} dest=../files/tmp/
+
+   - local_action: shell gvimdiff ../files/tmp/*/{{ file }}
+     run_once: true
+
+   - pause: prompt="Press enter when finished editing differences..."
+
+   - copy: src=../files/tmp/{{inventory_hostname}}{{ file }} dest={{ file }}
+
+   - local_action: file path=../files/tmp/{{ inventory_hostname }} state=absent
+ 
+

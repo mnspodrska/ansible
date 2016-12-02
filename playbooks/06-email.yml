@@ -1,0 +1,23 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Send email to users
+  hosts: local
+  gather_facts: False
+  vars_files:
+   - ../vars/users.yml
+
+  tasks:
+   - local_action: file path=../files/tmp state=directory
+   - local_action: template src=../files/mail.j2 dest=../files/tmp/{{ item.key }}.mail force=yes 
+     with_dict: "{{ users }}"
+     run_once: true
+
+   - local_action: 
+        mail 
+        to={{ item.value.email }} 
+        subject="Hello from {{ inventory_hostname }}"
+        body={{ lookup("file","../files/tmp/{{ item.key}}.mail" )}}
+     with_dict: "{{ users }}"
+     run_once: true
+  
+ 

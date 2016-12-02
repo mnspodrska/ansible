@@ -1,0 +1,6 @@
+[local]
+localhost 
+
+[mday]
+mns-mday-[1:2]
+

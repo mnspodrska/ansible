@@ -1,0 +1,8 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Say hello
+  hosts: all
+  gather_facts: False
+
+  tasks:
+    - debug: msg="Hello World. My name is {{ inventory_hostname }}"

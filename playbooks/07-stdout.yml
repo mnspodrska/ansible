@@ -1,0 +1,12 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Show how ugly ansible output is
+  hosts: local
+  gather_facts: False
+
+  tasks:
+   - shell: cat /etc/fstab
+     register: result
+
+   - debug: msg="{{ result.stdout }}"
+

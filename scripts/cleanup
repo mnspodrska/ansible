@@ -1,0 +1,6 @@
+rm -rf files/conf
+rm -rf files/content
+rm -f callback/*py callback/*pyc
+rm -rf playbooks/ansible-examples
+rm -rf files/tmp/*
+find . -name "*.retry" -delete

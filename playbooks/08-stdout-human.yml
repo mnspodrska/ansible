@@ -1,0 +1,8 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Be more human!
+  gather_facts: False
+  hosts: local
+
+  tasks:
+   - shell: cat /etc/fstab
